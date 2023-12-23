@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dice Roll Simulator</title>
+  <style>
+    #output {
+      font-weight: bold;
+    }
+
+    .dice {
+      width: 50px; /* Set the width of your dice images */
+      height: 50px; /* Set the height of your dice images */
+    }
+  </style>
+</head>
+<body>
+
+<h1>Dice Roll Simulator</h1>
+<button onclick="rollDice()">Roll 12 Dice</button>
+<div id="output"></div>
+
+<script>
+function rollDice() {
+  // Roll 12 dice
+  let rolls = [];
+  for (let i = 0; i < 12; i++) {
+    rolls.push(Math.floor(Math.random() * 6) + 1);
+  }
+
+  // Count occurrences of each face
+  let counts = [0, 0, 0, 0, 0, 0];
+  for (let roll of rolls) {
+    counts[roll - 1]++;
+  }
+
+  // Calculate probabilities
+  let probabilities = counts.map(count => count / 12);
+
+  // Display the results using dice images
+  let output = "Results of 12 dice rolls: ";
+  for (let i = 0; i < rolls.length; i++) {
+    output += `<img class="dice" src="die${rolls[i]}.png" alt="Die ${rolls[i]}">`;
+  }
+
+  output += "<br><br>Probability of each face:<br>";
+  for (let i = 0; i < probabilities.length; i++) {
+    output += `Face ${i + 1}: ${probabilities[i].toFixed(2)}<br>`;
+  }
+
+  // Update the output element
+  document.getElementById('output').innerHTML = output;
+}
+</script>
+
+</body>
+</html>
